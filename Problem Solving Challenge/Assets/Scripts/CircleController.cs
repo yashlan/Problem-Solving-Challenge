@@ -65,7 +65,10 @@ namespace Yashlan.controller
         void FixedUpdate()
         {
             if (_problemType == ProblemType.problem_4)
+            {
+                _speed = 5;
                 _rb.MovePosition(_rb.position + movement * _speed * Time.fixedDeltaTime);
+            }
         }
     }
 }
