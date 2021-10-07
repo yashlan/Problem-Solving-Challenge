@@ -11,7 +11,7 @@ namespace Yashlan.controller
         [SerializeField]
         private float _speed;
 
-        void Start() => _rb.velocity = new Vector2(_speed, _rb.velocity.y);
+        void Start() => _rb.AddForce(new Vector2(_speed, _speed));
 
         void OnGUI()
         {
