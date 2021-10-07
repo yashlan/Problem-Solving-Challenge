@@ -60,6 +60,14 @@ namespace Yashlan.controller
                 movement.x = Input.GetAxisRaw("Horizontal");
                 movement.y = Input.GetAxisRaw("Vertical");
             }
+
+            if(_problemType == ProblemType.problem_5)
+            {
+                _speed = 0.1f;
+                var mousePosition = Input.mousePosition;
+                mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+                transform.position = Vector2.Lerp(transform.position, mousePosition, _speed);
+            }
         }
 
         void FixedUpdate()
