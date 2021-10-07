@@ -11,15 +11,15 @@ namespace Yashlan.controller
         [SerializeField]
         private float _speed;
 
-        void Start() => _rb.AddForce(new Vector2(_speed, _speed));
+        Vector2 movement;
 
-        void OnGUI()
+        void Update()
         {
-            var speed_info = $"Move Speed : {_rb.velocity.magnitude}f";
-            var guiStyle = new GUIStyle(GUI.skin.textArea);
-            guiStyle.alignment = TextAnchor.MiddleCenter;
-            guiStyle.fontSize = 20;
-            GUI.TextArea(new Rect(Screen.width / 2 - 200, Screen.height - 200, 400, 110), speed_info, guiStyle);
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
         }
+
+        void FixedUpdate() => 
+            _rb.MovePosition(_rb.position + movement * _speed * Time.fixedDeltaTime);
     }
 }
