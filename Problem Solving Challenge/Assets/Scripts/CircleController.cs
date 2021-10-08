@@ -11,6 +11,8 @@ namespace Yashlan.controller
         private Rigidbody2D _rb;
         [SerializeField]
         private float _speed;
+        [SerializeField]
+        private int _score;
 
         Vector2 movement;
 
