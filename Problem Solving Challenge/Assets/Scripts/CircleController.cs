@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using Yashlan.enums;
 using Yashlan.util;
 
@@ -19,13 +20,17 @@ namespace Yashlan.controller
 
         Vector2 movement;
 
-        public int Score
-        {
-            set => _score = value;
-            get => _score;
-        }
+        bool hasSpawnAreaInit = false;
 
         public float NotSpawnArea => _notSpawnArea;
+
+        private IEnumerator InitSpawnArea(float newSize)
+        {
+            _notSpawnArea = 3f;
+            yield return new WaitForSeconds(1f);
+            _notSpawnArea = newSize;
+            hasSpawnAreaInit = true;
+        }
 
         void Start() 
         {
@@ -40,6 +45,12 @@ namespace Yashlan.controller
                 _speed = 1000f;
                 _rb.AddForce(new Vector2(_speed, _speed));
             }
+
+            if (_problemType == ProblemTypes.ProblemType.problem_8)
+            {
+                StartCoroutine(InitSpawnArea(0.8f));
+            }
+
         }
 
         private void OnDrawGizmosSelected()
@@ -109,8 +120,20 @@ namespace Yashlan.controller
         {
             if (collision.gameObject.name == "box(Clone)")
             {
-                _score++;
-                collision.gameObject.SetActive(false);
+                if (_problemType == ProblemTypes.ProblemType.problem_7)
+                {
+                    _score++;
+                    collision.gameObject.SetActive(false);
+                }
+
+                if(_problemType == ProblemTypes.ProblemType.problem_8)
+                {
+                    if (hasSpawnAreaInit)
+                    {
+                        _score++;
+                        collision.gameObject.SetActive(false);
+                    }
+                }
             }
         }
     }

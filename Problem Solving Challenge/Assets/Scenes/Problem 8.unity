@@ -250,6 +250,7 @@ MonoBehaviour:
   - {fileID: 21300014, guid: 0d614aac056cbc84ea48743369e4fcce, type: 3}
   - {fileID: 21300016, guid: 0d614aac056cbc84ea48743369e4fcce, type: 3}
   - {fileID: 21300018, guid: 0d614aac056cbc84ea48743369e4fcce, type: 3}
+  HasSpawned: 0
 --- !u!1 &2066362656
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,7 +370,7 @@ MonoBehaviour:
   _rb: {fileID: 2066362659}
   _speed: 0.1
   _score: 0
-  _notSpawnArea: 0.8
+  _notSpawnArea: 3
 --- !u!58 &2066362661
 CircleCollider2D:
   m_ObjectHideFlags: 0
