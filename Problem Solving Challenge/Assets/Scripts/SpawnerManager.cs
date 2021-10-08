@@ -3,7 +3,6 @@ using Yashlan.enums;
 
 namespace Yashlan.manage
 {
-    #region untuk problem 6
     public class SpawnerManager : MonoBehaviour
     {
         [SerializeField]
@@ -32,5 +31,4 @@ namespace Yashlan.manage
             }
         }
     }
-    #endregion
 }
