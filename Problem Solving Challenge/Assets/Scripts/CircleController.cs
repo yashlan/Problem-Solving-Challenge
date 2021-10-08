@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -30,7 +31,17 @@ namespace Yashlan.controller
 
         Vector2 movement;
 
+        bool hasSpawnAreaInit = false;
+
         public float NotSpawnArea => _notSpawnArea;
+
+        private IEnumerator InitSpawnArea(float newSize)
+        {
+            _notSpawnArea = 3f;
+            yield return new WaitForSeconds(1f);
+            _notSpawnArea = newSize;
+            hasSpawnAreaInit = true;
+        }
 
         void Start() 
         {
@@ -46,10 +57,16 @@ namespace Yashlan.controller
                 _rb.AddForce(new Vector2(_speed, _speed));
             }
 
-            if(_problemType == ProblemTypes.ProblemType.problem_9)
+            if (_problemType == ProblemTypes.ProblemType.problem_8)
+            {
+                StartCoroutine(InitSpawnArea(0.8f));
+            }
+
+            if (_problemType == ProblemTypes.ProblemType.problem_9)
             {
                 movement = Vector2.right;
                 tails = new List<Transform>();
+                StartCoroutine(InitSpawnArea(0.49f));
                 InvokeRepeating(nameof(MoveAsSnake), 0.3f, 0.3f);
             }
         }
@@ -57,7 +74,7 @@ namespace Yashlan.controller
         #region untuk problem ke 9
         private void MoveAsSnake()
         {
-            if (!_dead)
+            if (!_dead && hasSpawnAreaInit)
             {
                 transform.Translate(movement);
 
@@ -132,9 +149,14 @@ namespace Yashlan.controller
 
         void Update()
         {
-            if(_problemType == ProblemTypes.ProblemType.problem_4 || 
-               _problemType == ProblemTypes.ProblemType.problem_7 ||
-               _problemType == ProblemTypes.ProblemType.problem_8  )
+            if(_problemType == ProblemTypes.ProblemType.problem_4 ||
+               _problemType == ProblemTypes.ProblemType.problem_7  )
+            {
+                movement.x = Input.GetAxisRaw("Horizontal");
+                movement.y = Input.GetAxisRaw("Vertical");
+            }
+
+            if (_problemType == ProblemTypes.ProblemType.problem_8 && hasSpawnAreaInit)
             {
                 movement.x = Input.GetAxisRaw("Horizontal");
                 movement.y = Input.GetAxisRaw("Vertical");
@@ -184,9 +206,21 @@ namespace Yashlan.controller
         {
             if (collision.gameObject.name == "box(Clone)")
             {
-                if(!_ate) _ate = true;
-                _score++;
-                collision.gameObject.SetActive(false);
+                if (_problemType == ProblemTypes.ProblemType.problem_7)
+                {
+                    _score++;
+                    collision.gameObject.SetActive(false);
+                }
+
+                if (_problemType == ProblemTypes.ProblemType.problem_8 || 
+                    _problemType == ProblemTypes.ProblemType.problem_9  )
+                {
+                    if (hasSpawnAreaInit)
+                    {
+                        _score++;
+                        collision.gameObject.SetActive(false);
+                    }
+                }
             }
         }
     }
