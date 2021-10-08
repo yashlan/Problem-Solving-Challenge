@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using Yashlan.enums;
+using Yashlan.util;
 
 namespace Yashlan.controller 
 {
-    public class CircleController : MonoBehaviour
+    public class CircleController : Singleton<CircleController>
     {
         [SerializeField]
         private ProblemTypes.ProblemType _problemType;
@@ -16,6 +17,11 @@ namespace Yashlan.controller
 
         Vector2 movement;
 
+        public int Score
+        {
+            set => _score = value;
+            get => _score;
+        }
 
         void Start() 
         {
@@ -42,11 +48,21 @@ namespace Yashlan.controller
                 guiStyle.fontSize = 20;
                 GUI.TextArea(new Rect(Screen.width / 2 - 200, Screen.height - 200, 400, 110), speed_info, guiStyle);
             }
+
+            if(_problemType == ProblemTypes.ProblemType.problem_7)
+            {
+                var score_info = $"Score : {_score}";
+                var guiStyle = new GUIStyle(GUI.skin.label);
+                guiStyle.alignment = TextAnchor.MiddleCenter;
+                guiStyle.fontSize = 30;
+                guiStyle.fontStyle = FontStyle.Bold;
+                GUI.Label(new Rect(Screen.width / 2 - 200, Screen.height - 400, 400, 110), score_info, guiStyle);
+            }
         }
 
         void Update()
         {
-            if(_problemType == ProblemTypes.ProblemType.problem_4)
+            if(_problemType == ProblemTypes.ProblemType.problem_4 || _problemType == ProblemTypes.ProblemType.problem_7)
             {
                 movement.x = Input.GetAxisRaw("Horizontal");
                 movement.y = Input.GetAxisRaw("Vertical");
@@ -63,7 +79,7 @@ namespace Yashlan.controller
 
         void FixedUpdate()
         {
-            if (_problemType == ProblemTypes.ProblemType.problem_4)
+            if (_problemType == ProblemTypes.ProblemType.problem_4 || _problemType == ProblemTypes.ProblemType.problem_7)
             {
                 _speed = 5;
                 _rb.MovePosition(_rb.position + movement * _speed * Time.fixedDeltaTime);
