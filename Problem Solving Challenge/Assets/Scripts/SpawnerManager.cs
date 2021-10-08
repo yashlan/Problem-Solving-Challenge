@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Yashlan.enums;
 
 namespace Yashlan.manage
 {
@@ -6,13 +7,18 @@ namespace Yashlan.manage
     public class SpawnerManager : MonoBehaviour
     {
         [SerializeField]
+        private ProblemTypes.ProblemType _problemType;
+        [SerializeField]
         private GameObject _box;
         [SerializeField]
         private Sprite[] _boxSprites;
 
         void Start()
         {
-            Spawn();
+            if (_problemType == ProblemTypes.ProblemType.problem_6)
+            {
+                Spawn();
+            }
         }
 
         void Spawn()
