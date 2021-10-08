@@ -14,6 +14,8 @@ namespace Yashlan.controller
         private float _speed;
         [SerializeField]
         private int _score;
+        [SerializeField]
+        private float _notSpawnArea;
 
         Vector2 movement;
 
@@ -22,6 +24,8 @@ namespace Yashlan.controller
             set => _score = value;
             get => _score;
         }
+
+        public float NotSpawnArea => _notSpawnArea;
 
         void Start() 
         {
@@ -36,11 +40,21 @@ namespace Yashlan.controller
                 _speed = 1000f;
                 _rb.AddForce(new Vector2(_speed, _speed));
             }
-        } 
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            if(_problemType == ProblemTypes.ProblemType.problem_8)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(transform.position, _notSpawnArea);
+            }
+        }
 
         void OnGUI()
         {
-            if (_problemType == ProblemTypes.ProblemType.problem_2 || _problemType == ProblemTypes.ProblemType.problem_3)
+            if (_problemType == ProblemTypes.ProblemType.problem_2 || 
+                _problemType == ProblemTypes.ProblemType.problem_3  )
             {
                 var speed_info = $"Move Speed : {_rb.velocity.magnitude}f";
                 var guiStyle = new GUIStyle(GUI.skin.textArea);
@@ -49,20 +63,23 @@ namespace Yashlan.controller
                 GUI.TextArea(new Rect(Screen.width / 2 - 200, Screen.height - 200, 400, 110), speed_info, guiStyle);
             }
 
-            if(_problemType == ProblemTypes.ProblemType.problem_7)
+            if(_problemType == ProblemTypes.ProblemType.problem_7 ||
+               _problemType == ProblemTypes.ProblemType.problem_8  )
             {
                 var score_info = $"Score : {_score}";
                 var guiStyle = new GUIStyle(GUI.skin.label);
-                guiStyle.alignment = TextAnchor.MiddleCenter;
+                guiStyle.alignment = TextAnchor.UpperCenter;
                 guiStyle.fontSize = 30;
                 guiStyle.fontStyle = FontStyle.Bold;
-                GUI.Label(new Rect(Screen.width / 2 - 200, Screen.height - 400, 400, 110), score_info, guiStyle);
+                GUI.Label(new Rect(Screen.width / 2 - 200, Screen.height - 650, 400, 110), score_info, guiStyle);
             }
         }
 
         void Update()
         {
-            if(_problemType == ProblemTypes.ProblemType.problem_4 || _problemType == ProblemTypes.ProblemType.problem_7)
+            if(_problemType == ProblemTypes.ProblemType.problem_4 || 
+               _problemType == ProblemTypes.ProblemType.problem_7 ||
+               _problemType == ProblemTypes.ProblemType.problem_8  )
             {
                 movement.x = Input.GetAxisRaw("Horizontal");
                 movement.y = Input.GetAxisRaw("Vertical");
@@ -79,7 +96,9 @@ namespace Yashlan.controller
 
         void FixedUpdate()
         {
-            if (_problemType == ProblemTypes.ProblemType.problem_4 || _problemType == ProblemTypes.ProblemType.problem_7)
+            if (_problemType == ProblemTypes.ProblemType.problem_4 ||
+                _problemType == ProblemTypes.ProblemType.problem_7 ||
+                _problemType == ProblemTypes.ProblemType.problem_8  )
             {
                 _speed = 5;
                 _rb.MovePosition(_rb.position + movement * _speed * Time.fixedDeltaTime);

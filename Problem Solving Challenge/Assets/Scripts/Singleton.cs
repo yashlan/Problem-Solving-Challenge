@@ -2,7 +2,7 @@
 
 namespace Yashlan.util
 {
-    #region untuk problem ke 7
+    #region untuk problem ke 7 dst
     public class Singleton<T> : MonoBehaviour where T : Singleton<T>
     {
         public static T Instance { get; protected set; }
