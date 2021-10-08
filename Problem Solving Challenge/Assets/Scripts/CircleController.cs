@@ -17,12 +17,6 @@ namespace Yashlan.controller
 
         Vector2 movement;
 
-        public int Score
-        {
-            set => _score = value;
-            get => _score;
-        }
-
         void Start() 
         {
             if(_problemType == ProblemTypes.ProblemType.problem_2)
@@ -83,6 +77,18 @@ namespace Yashlan.controller
             {
                 _speed = 5;
                 _rb.MovePosition(_rb.position + movement * _speed * Time.fixedDeltaTime);
+            }
+        }
+
+        void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject.name == "box(Clone)")
+            {
+                if(_problemType == ProblemTypes.ProblemType.problem_7)
+                {
+                    _score++;
+                    collision.gameObject.SetActive(false);
+                }
             }
         }
     }
