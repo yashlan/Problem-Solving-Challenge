@@ -31,7 +31,8 @@ namespace Yashlan.manage
                 Spawn(true, false);
             }
 
-            if (_problemType == ProblemTypes.ProblemType.problem_8)
+            if (_problemType == ProblemTypes.ProblemType.problem_8 || 
+                _problemType == ProblemTypes.ProblemType.problem_9  )
             {
                 _boxTempList = new List<GameObject>();
                 Spawn(true, true);
@@ -40,7 +41,8 @@ namespace Yashlan.manage
 
         private void Update()
         {
-            if(_problemType == ProblemTypes.ProblemType.problem_8)
+            if (_problemType == ProblemTypes.ProblemType.problem_8 ||
+                _problemType == ProblemTypes.ProblemType.problem_9  )
             {
                 for (int i = 0; i < _boxTempList.Count; i++)
                 {
@@ -67,6 +69,7 @@ namespace Yashlan.manage
         void Spawn(bool setupBoxCollider2D, bool dontSpawnInCircleArea)
         {
             var spawnLength = Random.Range(5, 15);
+
             for (int i = 0; i < spawnLength; i++)
             {
                 var sr = _box.GetComponent<SpriteRenderer>();
@@ -97,7 +100,7 @@ namespace Yashlan.manage
             }
         }
 
-        #region untuk problem ke 8
+        #region untuk problem ke 8 dst
         public void ReSpawnBox(GameObject _boxTemp)
         {
             _boxTemp.transform.position = new Vector3(Random.Range(-8f, 8f), Random.Range(-4f, 4f), _boxTemp.transform.position.z);
