@@ -56,7 +56,7 @@ namespace Yashlan.controller
                 guiStyle.alignment = TextAnchor.MiddleCenter;
                 guiStyle.fontSize = 30;
                 guiStyle.fontStyle = FontStyle.Bold;
-                GUI.Label(new Rect(Screen.width / 2 - 200, Screen.height - 400, 400, 110), score_info, guiStyle);
+                GUI.Label(new Rect(Screen.width / 2 - 200, Screen.height - 650, 400, 110), score_info, guiStyle);
             }
         }
 
