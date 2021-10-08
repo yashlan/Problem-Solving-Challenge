@@ -89,14 +89,19 @@ namespace Yashlan.controller
         void Update()
         {
             if(_problemType == ProblemTypes.ProblemType.problem_4 || 
-               _problemType == ProblemTypes.ProblemType.problem_7 ||
-               _problemType == ProblemTypes.ProblemType.problem_8  )
+               _problemType == ProblemTypes.ProblemType.problem_7  )
             {
                 movement.x = Input.GetAxisRaw("Horizontal");
                 movement.y = Input.GetAxisRaw("Vertical");
             }
 
-            if(_problemType == ProblemTypes.ProblemType.problem_5)
+            if(_problemType == ProblemTypes.ProblemType.problem_8 && hasSpawnAreaInit)
+            {
+                movement.x = Input.GetAxisRaw("Horizontal");
+                movement.y = Input.GetAxisRaw("Vertical");
+            }
+
+            if (_problemType == ProblemTypes.ProblemType.problem_5)
             {
                 _speed = 0.1f;
                 var mousePosition = Input.mousePosition;
