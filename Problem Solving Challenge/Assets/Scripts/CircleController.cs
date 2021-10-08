@@ -104,5 +104,14 @@ namespace Yashlan.controller
                 _rb.MovePosition(_rb.position + movement * _speed * Time.fixedDeltaTime);
             }
         }
+
+        void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject.name == "box(Clone)")
+            {
+                _score++;
+                collision.gameObject.SetActive(false);
+            }
+        }
     }
 }
