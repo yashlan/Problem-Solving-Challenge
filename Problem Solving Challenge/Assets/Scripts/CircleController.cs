@@ -26,12 +26,25 @@ namespace Yashlan.controller
         private bool _ate = false;
         [SerializeField]
         private bool _dead = false;
+        [SerializeField]
+        private float _hitRange;
+        [SerializeField]
+        private LayerMask _tailMask;
+        [SerializeField]
+        private Transform[] _hitTransform;
 
-        List<Transform> tails;
+        List<Transform> tails = new List<Transform>();
+        List<Vector2> moveList = new List<Vector2> { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
+        List<Color> randomColor = new List<Color> { Color.red, Color.white, Color.black, Color.blue, Color.cyan, Color.gray, Color.yellow, Color.magenta };
 
         Vector2 movement;
 
         bool hasSpawnAreaInit = false;
+
+        bool canMoveLeft = true;
+        bool canMoveRight = true;
+        bool canMoveTop = true;
+        bool canMoveDown = true;
 
         public float NotSpawnArea => _notSpawnArea;
 
@@ -64,8 +77,8 @@ namespace Yashlan.controller
 
             if (_problemType == ProblemTypes.ProblemType.problem_9)
             {
-                movement = Vector2.right;
-                tails = new List<Transform>();
+                var index = Random.Range(0, moveList.Count);
+                movement = moveList[index];
                 StartCoroutine(InitSpawnArea(0.49f));
                 InvokeRepeating(nameof(MoveAsSnake), 0.3f, 0.3f);
             }
@@ -81,6 +94,9 @@ namespace Yashlan.controller
                 if (_ate)
                 {
                     var newTail = Instantiate(_tail, transform.position, Quaternion.identity);
+                    var sr = newTail.GetComponent<SpriteRenderer>();
+                    var index = Random.Range(0, randomColor.Count);
+                    sr.color = randomColor[index];
                     tails.Insert(0, newTail.transform);
                     _ate = false;
                 }
@@ -94,13 +110,24 @@ namespace Yashlan.controller
         }
         #endregion
 
-        private void OnDrawGizmosSelected()
+        void OnDrawGizmos()
         {
-            if(_problemType == ProblemTypes.ProblemType.problem_8 ||
-               _problemType == ProblemTypes.ProblemType.problem_9  )
+            if(_problemType == ProblemTypes.ProblemType.problem_8)
             {
                 Gizmos.color = Color.red;
                 Gizmos.DrawWireSphere(transform.position, _notSpawnArea);
+            }
+
+            if(_problemType == ProblemTypes.ProblemType.problem_9)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(transform.position, _notSpawnArea);
+
+                Gizmos.color = Color.cyan;
+                foreach (var t in _hitTransform)
+                {
+                    Gizmos.DrawWireSphere(t.position, _hitRange);
+                }
             }
         }
 
@@ -170,8 +197,15 @@ namespace Yashlan.controller
                 transform.position = Vector2.Lerp(transform.position, mousePosition, _speed);
             }
 
-            if(_problemType == ProblemTypes.ProblemType.problem_9)
+            if(_problemType == ProblemTypes.ProblemType.problem_9 && hasSpawnAreaInit)
             {
+                foreach (var t in _hitTransform)
+                {
+                    RaycastHit2D hit = Physics2D.Raycast(t.position, movement, _hitRange, _tailMask);
+
+                    if (hit) _dead = true;
+                }
+
                 if(transform.position.y > 4.5f || transform.position.y < -4.5f || transform.position.x > 8.5f || transform.position.x < -8.5f)
                 {
                     _dead = true;
@@ -179,14 +213,37 @@ namespace Yashlan.controller
 
                 if (!_dead)
                 {
-                    if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+                    if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && canMoveRight)
+                    {
+                        canMoveLeft = false;
+                        canMoveDown = true;
+                        canMoveTop = true;
                         movement = Vector2.right;
-                    if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
-                        movement = -Vector2.up;
-                    if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
-                        movement = -Vector2.right;
-                    if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
+                    }
+
+                    if ((Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) && canMoveDown)
+                    {
+                        canMoveTop = false;
+                        canMoveLeft = true;
+                        canMoveRight = true;
+                        movement = Vector2.down;
+                    }
+
+                    if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) && canMoveLeft)
+                    {
+                        canMoveRight = false;
+                        canMoveTop = true;
+                        canMoveDown = true;
+                        movement = Vector2.left;
+                    }
+
+                    if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) && canMoveTop)
+                    {
+                        canMoveDown = false;
+                        canMoveLeft = true;
+                        canMoveRight = true;
                         movement = Vector2.up;
+                    }
                 }
             }
         }
@@ -212,8 +269,7 @@ namespace Yashlan.controller
                     collision.gameObject.SetActive(false);
                 }
 
-                if (_problemType == ProblemTypes.ProblemType.problem_8 || 
-                    _problemType == ProblemTypes.ProblemType.problem_9  )
+                if (_problemType == ProblemTypes.ProblemType.problem_8)
                 {
                     if (hasSpawnAreaInit)
                     {
@@ -221,6 +277,21 @@ namespace Yashlan.controller
                         collision.gameObject.SetActive(false);
                     }
                 }
+
+                if(_problemType == ProblemTypes.ProblemType.problem_9)
+                {
+                    if (hasSpawnAreaInit)
+                    {
+                        if (!_ate) _ate = true;
+                        _score++;
+                        collision.gameObject.SetActive(false);
+                    }
+                }
+            }
+
+            if (collision.gameObject.tag == "tail" && _problemType == ProblemTypes.ProblemType.problem_9)
+            {
+                _dead = true;
             }
         }
     }

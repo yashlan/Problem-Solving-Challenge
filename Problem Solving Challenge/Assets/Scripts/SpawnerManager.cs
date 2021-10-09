@@ -68,7 +68,12 @@ namespace Yashlan.manage
 
         void Spawn(bool setupBoxCollider2D, bool dontSpawnInCircleArea)
         {
-            var spawnLength = Random.Range(5, 15);
+            int spawnLength;
+
+            if (_problemType == ProblemTypes.ProblemType.problem_9)
+                spawnLength = 5;
+            else
+                spawnLength = Random.Range(5, 15);
 
             for (int i = 0; i < spawnLength; i++)
             {
