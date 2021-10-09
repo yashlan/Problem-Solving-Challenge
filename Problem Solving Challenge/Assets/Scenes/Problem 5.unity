@@ -309,7 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0780c24071ff45a43b0c2cc53d8baa20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _problemType: 3
+  _problemType: 4
   _rb: {fileID: 2066362659}
   _speed: 0.1
   _score: 0
@@ -317,6 +317,11 @@ MonoBehaviour:
   _tail: {fileID: 0}
   _ate: 0
   _dead: 0
+  _hitRange: 0
+  _tailMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _hitTransform: []
 --- !u!58 &2066362661
 CircleCollider2D:
   m_ObjectHideFlags: 0

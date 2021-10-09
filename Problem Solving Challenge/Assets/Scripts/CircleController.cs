@@ -246,6 +246,8 @@ namespace Yashlan.controller
                     }
                 }
             }
+
+            if (Input.GetKey(KeyCode.Escape)) SceneManager.LoadScene(0);
         }
 
         void FixedUpdate()

@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb65683b6ce48942b0e3d6a4b0858de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _problemType: 6
+  _problemType: 7
   _box: {fileID: 3499145680119469955, guid: 2355b26b61a53f5458be7cdc4f0d844c, type: 3}
   _boxSprites:
   - {fileID: 21300000, guid: 0d614aac056cbc84ea48743369e4fcce, type: 3}
@@ -365,7 +365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0780c24071ff45a43b0c2cc53d8baa20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _problemType: 6
+  _problemType: 7
   _rb: {fileID: 2066362659}
   _speed: 0.1
   _score: 0
@@ -373,6 +373,11 @@ MonoBehaviour:
   _tail: {fileID: 0}
   _ate: 0
   _dead: 0
+  _hitRange: 0
+  _tailMask:
+    serializedVersion: 2
+    m_Bits: 0
+  _hitTransform: []
 --- !u!58 &2066362661
 CircleCollider2D:
   m_ObjectHideFlags: 0
