@@ -47,10 +47,9 @@ namespace Yashlan.controller
             {
                 var score_info = $"Score : {_score}";
                 var guiStyle = new GUIStyle(GUI.skin.label);
-                guiStyle.alignment = TextAnchor.MiddleCenter;
-                guiStyle.fontSize = 30;
+                guiStyle.fontSize = 40;
                 guiStyle.fontStyle = FontStyle.Bold;
-                GUI.Label(new Rect(Screen.width / 2 - 200, Screen.height - 650, 400, 110), score_info, guiStyle);
+                GUI.Label(new Rect(0.44f * Screen.width, 0.05f * Screen.height, 400, 110), score_info, guiStyle);
             }
         }
 
