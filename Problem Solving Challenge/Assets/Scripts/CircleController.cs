@@ -149,27 +149,24 @@ namespace Yashlan.controller
             {
                 var score_info = $"Score : {_score}";
                 var guiStyle = new GUIStyle(GUI.skin.label);
-                guiStyle.alignment = TextAnchor.UpperCenter;
-                guiStyle.fontSize = 30;
+                guiStyle.fontSize = 40;
                 guiStyle.fontStyle = FontStyle.Bold;
-                GUI.Label(new Rect(Screen.width / 2 - 200, Screen.height - 650, 400, 110), score_info, guiStyle);
+                GUI.Label(new Rect(0.44f * Screen.width, 0.05f * Screen.height, 400, 110), score_info, guiStyle);
             }
 
             if(_problemType == ProblemTypes.ProblemType.problem_9)
             {
                 if (_dead)
                 {
-                    if (GUI.Button(new Rect(Screen.width / 2 - 60, 320, 120, 53), "RESTART"))
+                    if (GUI.Button(new Rect(Screen.width / 2 - 60, Screen.height / 2 - 10, 120, 53), "RESTART"))
                     {
                         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                     }
 
                     GUIStyle guiStyle = new GUIStyle(GUI.skin.label);
-                    guiStyle.alignment = TextAnchor.MiddleCenter;
                     guiStyle.fontStyle = FontStyle.Bold;
-                    guiStyle.fontSize = 50;
-                    GUI.Label(new Rect(Screen.width / 2 - 200, Screen.height - 500, 400, 110), "GAME OVER", guiStyle);
-
+                    guiStyle.fontSize = 40;
+                    GUI.Label(new Rect(Screen.width / 2 - 115, Screen.height / 2 - 100, 400, 110), "GAME OVER", guiStyle);
                 }
             }
         }
