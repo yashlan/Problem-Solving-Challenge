@@ -11,7 +11,7 @@ Pada problem ke 4, 7, 8, 9 untuk menggerakkan Circle, gunakan <b>W A S D atau to
 
 ## How To Play
 
-Download file hasil buildnya disini : ![Klik disini](https://github.com/yashlan/Problem-Solving-Challenge/blob/main/Problem%20Solving%20Challenge/File%20Export%20Here.rar?raw=true)
+Download file hasil buildnya disini : [Klik disini](https://github.com/yashlan/Problem-Solving-Challenge/blob/main/Problem%20Solving%20Challenge/File%20Export%20Here.rar?raw=true)
 
 ## Screen Shoot
 
