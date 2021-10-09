@@ -13,8 +13,8 @@ Problem 4 : membuat circle bergerak melalui input keyboard <br>
 Problem 5 : membuat circle mengikuti arah kursor <br>
 Problem 6 : random spawn kotak <br>
 Problem 7 : menambahkan skor dan menghilangkan kotak ketika bertabrakan dengan circle <br>
-Problem 8 : respawn kotak dengan delay 3 detik setelah bertabrakan dengan circle <br>
-Problem 9 : kembangkan hingga menjadi game. Saya ubah menjadi game mirip snake xenzia <br>
+Problem 8 : respawn kotak(diluar lokasi circle) dengan delay selama 3 detik setelah bertabrakan dengan circle <br>
+Problem 9 : kembangkan hingga menjadi game. Saya ubah menjadi game mirip snake xenzia(circle as snake and box as food)<br>
 Problem 10 : membuat navigasi antar scene, dengan cara membuat scene menu kemudian diberi 9 tombol.
 
 ## Input
