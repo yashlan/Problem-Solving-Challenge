@@ -6,7 +6,7 @@ Ukuran layar 16:9
 
 ## Deskripsi
 
-Problem 1 : menaruh circle ditengah <br>
+Problem 1 : menaruh circle ditengah layar<br>
 Problem 2 : membuat circle bergerak secara konstan <br>
 Problem 3 : membuat circle dapat memantul <br>
 Problem 4 : membuat circle bergerak melalui input keyboard <br>
